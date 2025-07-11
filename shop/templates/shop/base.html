@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Focus Point{% endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Focus Point</h1>
+                </div>
+
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="#" class="nav-link active">Главная</a></li>
+                        <li><a href="#" class="nav-link">Каталог</a></li>
+                        <li><a href="#" class="nav-link">О нас</a></li>
+                        <li><a href="#" class="nav-link">Контакты</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="icon-btn" aria-label="Корзина">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8L6 5H3m4 8v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-6"/>
+                            <circle cx="9" cy="20" r="1"/>
+                            <circle cx="20" cy="20" r="1"/>
+                        </svg>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="icon-btn" aria-label="Вход в аккаунт">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <button class="mobile-menu-btn" aria-label="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+<!-- Hero Banner -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h2 class="hero-title">Стильные очки для любого образа жизни</h2>
+            <p class="hero-subtitle">Откройте для себя коллекцию премиальных очков, которые подчеркнут вашу индивидуальность</p>
+            <button class="cta-btn">Перейти в каталог</button>
+        </div>
+        <div class="hero-image">
+            <div class="glasses-showcase">
+                <div class="glasses-item glasses-1"></div>
+                <div class="glasses-item glasses-2"></div>
+                <div class="glasses-item glasses-3"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% block content %}
+{% endblock %}
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">OptiVision</h3>
+                <p class="footer-desc">Ваш надежный партнер в мире стильных и качественных очков</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-subtitle">Контакты</h4>
+                <div class="contact-info">
+                    <p>📞 +7 (495) 123-45-67</p>
+                    <p>✉️ info@optivision.ru</p>
+                    <p>📍 Москва, ул. Примерная, 123</p>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-subtitle">Социальные сети</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="VKontakte">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 15h-1.5c-.83 0-1.33-.52-1.33-1.35 0-.83.5-1.35 1.33-1.35h1.5v2.7zm-7 0h-1.5v-2.7h1.5c.83 0 1.33.52 1.33 1.35 0 .83-.5 1.35-1.33 1.35z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Telegram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.45 3.61-.52.36-.99.53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.74 3.99-1.74 6.65-2.89 7.98-3.45 3.8-1.58 4.59-1.85 5.1-1.86.11 0 .37.03.53.17.14.12.18.28.2.4-.01.06.01.24-.02.37z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 OptiVision. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
