@@ -18,7 +18,7 @@
 
                 <nav class="nav">
                     <ul class="nav-list">
-                        <li><a href="#" class="nav-link active">Главная</a></li>
+                        <li><a href="/" class="nav-link active">Главная</a></li>
                         <li><a href="#" class="nav-link">Каталог</a></li>
                         <li><a href="#" class="nav-link">О нас</a></li>
                         <li><a href="#" class="nav-link">Контакты</a></li>
@@ -68,8 +68,51 @@
     </div>
 </section>
 
-{% block content %}
-{% endblock %}
+
+<section class="categories">
+    <div class="container">
+
+        <h2 class="section-title">Категории товаров</h2>
+        <div class="categories-grid">
+            {% for category in categories %}
+                <a class="category-title" href="{% url 'shop:product_list_by_category' category.slug %}">
+                <div class="category-card">
+                        <div class="category-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                        </svg>
+                        </div>
+                        <h3 class="category-title">{{ category.name }}</h3>
+                    <p class="category-desc">{{ category.category_desc }}</p>
+                </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="products">
+        <div class="container">
+            <h2 class="section-title">Популярные товары</h2>
+            <div class="products-grid">
+                {% for product in products %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <a href="{{ product.get_absolute_url }}">
+                        <img src="{{ product.main_image.url }}" alt="Спортивные очки Active" />
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-price">{{ product.price }}₽</p>
+                        <button class="add-to-cart-btn">В корзину</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
 
 <!-- Footer -->
 <footer class="footer">

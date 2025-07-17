@@ -241,6 +241,7 @@ body {
 }
 
 .category-card {
+
   background: white;
   padding: 2rem;
   border-radius: 12px;
@@ -262,6 +263,7 @@ body {
 }
 
 .category-title {
+  text-decoration: none;
   font-size: 1.3rem;
   font-weight: 600;
   color: #252422;
