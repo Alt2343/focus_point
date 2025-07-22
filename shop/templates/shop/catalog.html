@@ -1,0 +1,27 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Категории товаров</h2>
+            <div class="categories-grid">
+                {% for category in categories %}
+                <a class="category-card" hx-get="{% url 'shop:product_list_by_category' category.slug %}" hx-target="#product_list" hx-trigger="click">
+                    <div class="category-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                        </svg>
+                    </div>
+                    <h3 class="category-title">{{ category.name }}</h3>
+                    <p class="category-desc">Защита от UV-лучей с стильным дизайном</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="product_list">
+        {% include "shop/product_list.html" %}
+        </div>
+    </section>
+{% endblock %}

@@ -8,4 +8,14 @@ def product_list(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
-    return render(request, 'shop/base.html', {'category': category, 'categories': categories, 'products': products})
+    
+    if request.headers.get('HX-Request'):
+        # Для HTMX-запросов возвращаем только список продуктов
+        return render(request, 'shop/product_list.html', {'products': products})
+    else:
+        # Для обычных запросов возвращаем полную страницу
+        return render(request, 'shop/catalog.html', {
+            'category': category,
+            'categories': categories,
+            'products': products
+        })

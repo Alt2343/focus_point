@@ -1,0 +1,21 @@
+<section class="products">
+        <div class="container">
+            <h2 class="section-title">Популярные товары</h2>
+            <div class="products-grid">
+                {% for product in products %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <a href="{{ product.get_absolute_url }}">
+                        <img src="{{ product.main_image.url }}" alt="Спортивные очки Active" />
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-price">{{ product.price }}₽</p>
+                        <button class="add-to-cart-btn">В корзину</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>  
