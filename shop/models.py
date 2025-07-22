@@ -59,6 +59,9 @@ class Product(models.Model):
     @property
     def current_price(self):
         return self.price * (100 - self.discount) / 100
+    @property
+    def saving(self):
+        return self.price - self.current_price
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
