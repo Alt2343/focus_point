@@ -21,6 +21,15 @@ def product_list(request, category_slug=None):
         })
 
 def product_detail(request, id, slug):
-    product = get_object_or_404(Product.objects.prefetch_related('images'), id=id, slug=slug, is_available=True)
-    return render(request, 'shop/product_detail.html', {'product': product})
+    product = get_object_or_404(
+        Product.objects.select_related('category', 'brand').prefetch_related('images'),
+        id=id,
+        slug=slug,
+        is_available=True
+    )
+    similar_products = Product.objects.filter(category=product.category,is_available=True).exclude(id=product.id).select_related('brand').order_by('?')[:4]
+    return render(request, 'shop/product_detail.html', {
+        'product': product,
+        'similar_products': similar_products
+    })
 

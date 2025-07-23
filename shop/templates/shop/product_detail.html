@@ -15,40 +15,43 @@
                 <div class="product-gallery">
                     <div class="main-image">
                         <img id="mainImage" src="{{ product.main_image.url }}" alt="{{ product.name }}" />
-                        <div class="discount-badge">-{{ product.discount }}</div>
                         <div class="favorite-btn">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                             </svg>
                         </div>
                     </div>
-                    
+                    {% if product.images.all %}
                     <div class="thumbnail-gallery">
                       {% for image in product.images.all %}
-                        <button class="thumbnail active" onclick="changeImage('/placeholder.svg?height=500&width=500')">
-                            <img src="{{ image.image.url }} alt="{{ product.name }}" />
-                        </button>
+                      <button class="thumbnail {% if forloop.first %}active{% endif %}" onclick="changeImage('{{ image.image.url }}')">
+                          <img src="{{ image.image.url }}" alt="{{ product.name }}" />
+                      </button>
                       {% endfor %}
                     </div>
+                    {% endif %}
                 </div>
-
                 <!-- Product Info -->
                 <div class="product-info">
                     <div class="product-header">
                         <div class="product-category">
-                            <span class="category-badge">Солнцезащитные</span>
+                            <span class="category-badge">{{ product.category.name }}</span>
                             <span class="brand">{{ product.brand }}</span>
                         </div>
                         <h1 class="product-name">{{ product.name }}</h1>
                     </div>
 
                     <div class="price-section">
-                        <div class="price-info">
-                            <span class="current-price">{{ product.current_price }}₽</span>
-                            <span class="original-price">{{ product.price }}₽</span>
-                            <span class="discount-percent">-{{ product.discount }}</span>
-                        </div>
+                    <div class="price-info">
+                    <span class="current-price">{{ product.current_price }}₽</span>
+                    {% if product.price != product.current_price %}  <!-- Если есть скидка -->
+                        <span class="original-price">{{ product.price }}₽</span>
+                        <span class="discount-percent">-{{ product.discount }}%</span>
+                    {% endif %}
+                    </div>
+                    {% if product.price != product.current_price %}  <!-- Если есть скидка -->
                         <div class="savings">Вы экономите {{ product.saving }} ₽</div>
+                    {% endif %}
                     </div>
 
                     <div class="product-description">
@@ -145,54 +148,29 @@
 
     <!-- Related Products -->
     <section class="related-products">
+    {% if similar_products %}
         <div class="container">
             <h2 class="section-title">Похожие товары</h2>
             <div class="products-grid">
+              {% for product in similar_products %}
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="/placeholder.svg?height=200&width=200" alt="Modern Aviator" />
+                        <a href="{% url 'shop:product_detail' id=product.id slug=product.slug %}">
+                        <img src="{{ product.main_image.url }}" alt="{{ product.name }}" />
+                        </a>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-title">Modern Aviator</h3>
-                        <p class="product-price">5 490 ₽</p>
-                        <button class="add-to-cart-btn">В корзину</button>
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-price">{{ product.price }}</p>
+                        <a href="{% url 'shop:product_detail' id=product.id slug=product.slug %}">
+                            <button class="add-to-cart-btn">В корзину</button>
+                        </a>
                     </div>
                 </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="/placeholder.svg?height=200&width=200" alt="Sport Aviator" />
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Sport Aviator</h3>
-                        <p class="product-price">4 200 ₽</p>
-                        <button class="add-to-cart-btn">В корзину</button>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="/placeholder.svg?height=200&width=200" alt="Vintage Aviator" />
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Vintage Aviator</h3>
-                        <p class="product-price">6 800 ₽</p>
-                        <button class="add-to-cart-btn">В корзину</button>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="/placeholder.svg?height=200&width=200" alt="Premium Aviator" />
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Premium Aviator</h3>
-                        <p class="product-price">8 990 ₽</p>
-                        <button class="add-to-cart-btn">В корзину</button>
-                    </div>
-                </div>
-            </div>
+              {% endfor %}  
+            </div>  
         </div>
+    {% endif %}    
     </section>
 
     <script>
