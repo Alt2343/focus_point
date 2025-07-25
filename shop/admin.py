@@ -3,7 +3,7 @@ from .models import *
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')
+    list_display = ('name', 'slug', 'category_icon')
     prepopulated_fields = {'slug': ('name',)}
 
 @admin.register(Brand)

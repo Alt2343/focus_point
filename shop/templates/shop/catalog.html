@@ -9,10 +9,7 @@
                 {% for category in categories %}
                 <a class="category-card" hx-get="{% url 'shop:product_list_by_category' category.slug %}" hx-target="#product_list" hx-trigger="click">
                     <div class="category-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
-                        </svg>
+                        <img src="{{ category.category_icon.url }}" alt="{{ product.name }}" weight='50px' height='50px' />
                     </div>
                     <h3 class="category-title">{{ category.name }}</h3>
                     <p class="category-desc">{{ category.category_desc }}</p>
