@@ -91,17 +91,18 @@
                     </div>
                     <!-- Purchase Section -->
                     <div class="purchase-section">
+                    <form method="post" action="{% url 'cart:cart_add' product.id %}">
+                        {% csrf_token %}
                         <div class="quantity-selector">
                             <label for="quantity">Количество:</label>
                             <div class="quantity-controls">
-                                <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
-                                <input type="number" id="quantity" value="1" min="1" max="10" readonly>
-                                <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+                                <input type="hidden" name="quantity" value="1">  <!-- Дефолтное количество = 1 -->
                             </div>
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <input type="hidden" name="override" value="False">
                         </div>
-
                         <div class="action-buttons">
-                            <button class="add-to-cart-btn primary">
+                            <button type="submit" class="add-to-cart-btn primary">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8L6 5H3m4 8v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-6"/>
                                     <circle cx="9" cy="20" r="1"/>
@@ -109,9 +110,10 @@
                                 </svg>
                                 Добавить в корзину
                             </button>
-                            <button class="buy-now-btn">Купить сейчас</button>
+                            <button type="button" class="buy-now-btn">Купить сейчас</button>
                         </div>
-                    </div>
+                    </form>
+                </div>
 
                     <!-- Additional Info -->
                     <div class="additional-info">
@@ -183,21 +185,6 @@
             event.target.closest('.thumbnail').classList.add('active');
         }
 
-        // Quantity controls
-        function changeQuantity(delta) {
-            const quantityInput = document.getElementById('quantity');
-            const currentValue = parseInt(quantityInput.value);
-            const newValue = Math.max(1, Math.min(10, currentValue + delta));
-            quantityInput.value = newValue;
-        }
-
-        // Color selection
-        document.querySelectorAll('.color-swatch').forEach(swatch => {
-            swatch.addEventListener('click', function() {
-                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
 
         // Favorite button toggle
         document.querySelector('.favorite-btn').addEventListener('click', function() {

@@ -40,7 +40,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Категория")
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name="Бренд")
     description = models.TextField(verbose_name="Описание")
-    price = models.DecimalField(max_digits=10, decimal_places=3, verbose_name="Цена")
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     discount = models.PositiveIntegerField(default=0, verbose_name="Скидка (%)")
     frame_type = models.CharField(max_length=20, choices=FRAME_TYPE_CHOICES, verbose_name="Тип оправы")
     lens_type = models.CharField(max_length=20, choices=LENS_TYPE_CHOICES, verbose_name="Тип линз")

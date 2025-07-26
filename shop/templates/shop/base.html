@@ -27,6 +27,7 @@
                 </nav>
 
                 <div class="header-actions">
+                    <a href="{% url 'cart:cart_detail' %}">
                     <button class="icon-btn" aria-label="Корзина">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8L6 5H3m4 8v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-6"/>
@@ -35,6 +36,7 @@
                         </svg>
                         <span class="cart-count">0</span>
                     </button>
+                    </a>
                     <button class="icon-btn" aria-label="Вход в аккаунт">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
