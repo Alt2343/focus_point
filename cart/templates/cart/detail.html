@@ -46,7 +46,10 @@
                     <!-- Cart Item 1 -->
                     <div class="cart-item">
                         <div class="item-image">
-                            <img src="{% if product.img %}{{ product.img.url }}{% else %}{% static "images/logo.png" %}{% endif %}" alt="{{ product.name }}" />
+                          <a href="{{ product.get_absolute_url }}">
+                            <img src="{% if product.main_image %}{{ product.main_image.url }}
+                            {% else %}{% static 'images/logo.png' %}{% endif %}">
+                          </a>
                         </div>
                         <div class="item-details">
                             <div class="item-header">
@@ -104,16 +107,12 @@
                             </div>
                             <div class="summary-row">
                                 <span>Скидка</span>
-                                <span class="discount">-{{ cart.get_discount|default:"0" }} ₽</span>
-                            </div>
-                            <div class="summary-row">
-                                <span>Доставка</span>
-                                <span class="free">Бесплатно</span>
+                                <span class="discount">-{{ cart.get_discount_total|default:"0" }} ₽</span>
                             </div>
                             <div class="summary-divider"></div>
                             <div class="summary-row total">
                                 <span>К оплате</span>
-                                <span>{{ cart.get_total_price_after_discount }} ₽</span>
+                                <span>{{ total_with_discount|floatformat:2 }} ₽</span>
                             </div>
                         </div>
 
@@ -142,7 +141,7 @@
                         </form>
 
                         <!-- Continue Shopping -->
-                        <a href="index.html" class="continue-shopping">
+                        <a href="\" class="continue-shopping">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="19" y1="12" x2="5" y2="12"/>
                                 <polyline points="12,19 5,12 12,5"/>
@@ -202,28 +201,11 @@
                                     <span>Банковская карта</span>
                                 </div>
                             </label>
-                            
-                            <label class="payment-option">
-                                <input type="radio" name="payment" value="bank">
-                                <div class="payment-content">
-                                    <div class="payment-icon">🏦</div>
-                                    <span>Банковский перевод</span>
-                                </div>
-                            </label>
-                            
                             <label class="payment-option">
                                 <input type="radio" name="payment" value="apple_pay">
                                 <div class="payment-content">
                                     <div class="payment-icon">📱</div>
                                     <span>Apple Pay</span>
-                                </div>
-                            </label>
-                            
-                            <label class="payment-option">
-                                <input type="radio" name="payment" value="cash">
-                                <div class="payment-content">
-                                    <div class="payment-icon">💰</div>
-                                    <span>Наличные</span>
                                 </div>
                             </label>
                         </div>

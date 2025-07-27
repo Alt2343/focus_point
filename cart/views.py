@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_POST
 from shop.models import Product
@@ -12,7 +9,6 @@ def cart_add(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     form = CartAddProductForm(request.POST)
-
     if form.is_valid():
         cd = form.cleaned_data
         cart.add(
@@ -21,14 +17,17 @@ def cart_add(request, product_id):
             override_quantity=cd['override']
         )
     return redirect('cart:cart_detail')
+
 @require_POST
 def cart_remove(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
     return redirect('cart:cart_detail')
+
 def cart_detail(request):
     cart = Cart(request)
+    
     # Добавляем форму для каждого товара в корзине
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(
@@ -37,7 +36,15 @@ def cart_detail(request):
                 'override': True
             }
         )
-    return render(request, 'cart/detail.html', {'cart': cart})  #
+    context = {
+        'cart': cart,
+        'total_without_discount': cart.get_total_price(),
+        'total_discount': cart.get_discount_total(),
+        'total_with_discount': cart.get_total_price_with_discount(),
+    }
+    
+    return render(request, 'cart/detail.html', context)
+
 def cart_update(request, product_id):
     cart = request.session.get('cart', {})
     product = get_object_or_404(Product, id=product_id)
@@ -51,7 +58,6 @@ def cart_update(request, product_id):
             request.session.modified = True
     
     return redirect('cart:cart_detail')
-from django.shortcuts import redirect
 
 def cart_clear(request):
     """Очистка всей корзины"""

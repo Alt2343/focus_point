@@ -43,3 +43,16 @@ class Cart:
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
         self.save()
+    def get_discount_total(self):
+        """Возвращает общую сумму скидки"""
+        total_discount = Decimal('0')
+        for item in self:
+            product = item['product']
+            if hasattr(product, 'discount') and product.discount > 0:
+                discount_amount = item['price'] * (Decimal(product.discount) / Decimal('100'))
+                total_discount += discount_amount * item['quantity']
+        return total_discount.quantize(Decimal('0'))
+    
+    def get_total_price_with_discount(self):
+        """Возвращает итоговую сумму с учётом скидок"""
+        return self.get_total_price() - self.get_discount_total()

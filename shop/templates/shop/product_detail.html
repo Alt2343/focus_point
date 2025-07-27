@@ -94,7 +94,7 @@
                     <form method="post" action="{% url 'cart:cart_add' product.id %}">
                         {% csrf_token %}
                         <div class="quantity-selector">
-                            <label for="quantity">Количество:</label>
+                            <!--<label for="quantity">Количество:</label>-->
                             <div class="quantity-controls">
                                 <input type="hidden" name="quantity" value="1">  <!-- Дефолтное количество = 1 -->
                             </div>
