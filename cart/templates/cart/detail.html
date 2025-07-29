@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-  Your shopping cart
+  Корзина - Focus Point
 {% endblock %}
 
 {% block content %}
@@ -127,7 +127,7 @@
                         </form>
 
                         <!-- Checkout Form -->
-                        <form action="#" method="post">
+                        <a href="{% url 'orders:order_create' %}" class="button">
                             <button type="submit" class="checkout-btn" name="action" value="checkout">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M9 12l2 2 4-4"/>
@@ -138,7 +138,7 @@
                                 </svg>
                                 Оформить заказ
                             </button>
-                        </form>
+                        </a>
 
                         <!-- Continue Shopping -->
                         <a href="\" class="continue-shopping">

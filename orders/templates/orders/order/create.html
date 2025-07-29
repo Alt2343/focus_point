@@ -1,0 +1,861 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+  Оформление заказа - Focus Point
+{% endblock %}
+
+{% block content %}
+<body>
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <ul class="breadcrumb-list">
+                <li><a href="\">Главная</a></li>
+                <li><a href="{% url 'cart:cart_detail' %}">Корзина</a></li>
+                <li class="current">Оформление заказа</li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Checkout Page -->
+    <main class="checkout-page">
+        <div class="container">
+            <h1 class="page-title">Оформление заказа</h1>
+            
+            <form action="#" method="post" class="checkout-form" novalidate>
+                <div class="checkout-layout">
+                    <!-- Order Details -->
+                    <div class="checkout-main">
+                        <!-- Contact Information -->
+                        <section class="form-section">
+                            <h2 class="section-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                Контактная информация
+                            </h2>
+                            <div class="form-grid">
+                            <form method="post" action="">
+                              {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="{{ form.first_name.id_for_label }}" class="form-label">Имя *</label>
+                                    {{ form.first_name }}
+                                    {% if form.first_name.errors %}
+                                    <div class="form-error">{{ form.first_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                  <label for="{{ form.last_name.id_for_label }}" class="form-label">Фамилия *</label>
+                                  {{ form.last_name }}
+                                  {% if form.last_name.errors %}
+                                  <div class="form-error">{{ form.last_name.errors }}</div>
+                                  {% endif %}
+                                </div>
+                                <div class="form-group full-width">
+                                  <label for="{{ form.email.id_for_label }}" class="form-label">Email *</label>
+                                  {{ form.email }}
+                                  {% if form.email.errors %}
+                                  <div class="form-error">{{ form.email.errors }}</div>
+                                  {% endif %}
+                                </div>
+                                <div class="form-group full-width">
+                                  <label for="{{ form.phone.id_for_label }}" class="form-label">Телефон *</label>
+                                  {{ form.phone }}
+                                  {% if form.phone.errors %}
+                                  <div class="form-error">{{ form.phone.errors }}</div>
+                                  {% endif %}
+                                </div>
+                                <div class="form-group full-width">
+                                  <label for="{{ form.city.id_for_label }}" class="form-label">Город *</label>
+                                  {{ form.city }}
+                                  {% if form.city.errors %}
+                                  <div class="form-error">{{ form.city.errors }}</div>
+                                  {% endif %}
+                                </div>
+                                <div class="form-group">
+                               <label for="{{ form.street.id_for_label }}" class="form-label">Улица *</label>
+                                  {{ form.street }}
+                                  {% if form.street.errors %}
+                                  <div class="form-error">{{ form.street.errors }}</div>
+                                  {% endif %}
+                                </div>
+                                <div class="form-group">
+                                  <label for="{{ form.house.id_for_label }}" class="form-label">Дом *</label>
+                                  {{ form.house }}
+                                  {% if form.house.errors %}
+                                  <div class="form-error">{{ form.house.errors }}</div>
+                                  {% endif %}
+                                </div>
+                                <div class="form-group">
+                                  <label for="{{ form.apartment.id_for_label }}" class="form-label">Квартира</label>
+                                  {{ form.apartment }}
+                                  {% if form.apartment.errors %}
+                                  <div class="form-error">{{ form.apartment.errors }}</div>
+                                  {% endif %}
+                                </div>
+                                <div class="form-group">
+                                  <label for="{{ form.entrance.id_for_label }}" class="form-label">Подъезд</label>
+                                  {{ form.entrance }}
+                                  {% if form.entrance.errors %}
+                                  <div class="form-error">{{ form.entrance.errors }}</div>
+                                  {% endif %}
+                                </div>
+                                <div class="form-group full-width">
+                                  <label for="{{ form.comment.id_for_label }}" class="form-label">Комментарий к доставке</label>
+                                  {{ form.comment }}
+                                  {% if form.comment.errors %}
+                                  <div class="form-error">{{ form.comment.errors }}</div>
+                                  {% endif %}
+                                </div>
+                            </form>    
+                            </div>
+                        </section>
+                        <!-- Payment Method -->
+                        <section class="form-section">
+                            <h2 class="section-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                    <line x1="1" y1="10" x2="23" y2="10"/>
+                                </svg>
+                                Способ оплаты
+                            </h2>
+                            
+                            <div class="payment-options">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="card" checked>
+                                    <div class="option-content">
+                                        <div class="payment-icon">💳</div>
+                                        <div class="option-details">
+                                            <h3>Банковская карта</h3>
+                                            <p>Visa, MasterCard, МИР</p>
+                                        </div>
+                                    </div>
+                                </label>
+                                
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="apple_pay">
+                                    <div class="option-content">
+                                        <div class="payment-icon">📱</div>
+                                        <div class="option-details">
+                                            <h3>Apple Pay</h3>
+                                            <p>Быстрая и безопасная оплата</p>
+                                        </div>
+                                    </div>
+                                </label>
+                                
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="cash">
+                                    <div class="option-content">
+                                        <div class="payment-icon">💰</div>
+                                        <div class="option-details">
+                                            <h3>Наличные</h3>
+                                            <p>Оплата при получении</p>
+                                        </div>
+                                    </div>
+                                </label>
+                                
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="bank_transfer">
+                                    <div class="option-content">
+                                        <div class="payment-icon">🏦</div>
+                                        <div class="option-details">
+                                            <h3>Банковский перевод</h3>
+                                            <p>Оплата по реквизитам</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </section>
+                    </div>
+                    
+
+                    <!-- Order Summary -->
+                    <div class="checkout-sidebar">
+                        <div class="order-summary">
+                            <h2 class="summary-title">Ваш заказ</h2>
+                            
+                            <!-- Order Items -->
+                            <div class="order-items">
+                              {% for item in cart %}
+                              {% with product=item.product %}
+                                <div class="order-item">
+                                    <img src="{% if product.main_image %}{{ product.main_image.url }}
+                            {% else %}{% static 'images/logo.png' %}{% endif %}" alt="{{ product.name }}" class="item-image">
+                                    <div class="item-details">
+                                        <h3 class="item-name">{{ product.name }}</h3>
+                                        <p class="item-specs">{{ product.color }}</p>
+                                        <div class="item-quantity">Количество: {{ item.quantity }}</div>
+                                    </div>
+                                    <div class="item-price">{{ item.total_price }} ₽</div>
+                                </div>
+                              {% endwith %}
+                              {% endfor %}
+                            </div>
+                            <!-- Promo Code -->
+                            <div class="promo-section">
+                                <details class="promo-details">
+                                    <summary class="promo-toggle">Есть промокод?</summary>
+                                    <div class="promo-input-group">
+                                        <input type="text" name="promo_code" class="promo-input" placeholder="Введите промокод">
+                                        <button type="submit" class="promo-btn" name="action" value="apply_promo">Применить</button>
+                                    </div>
+                                </details>
+                            </div>
+                            
+                            <!-- Order Total -->
+                            <div class="order-total">
+                                <div class="total-row">
+                                    <span>Товары ({{ cart|length }} шт.)</span>
+                                    <span>{{ cart.get_total_price }}₽</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Скидка</span>
+                                    <span class="discount">-{{ cart.get_discount_total|default:"0" }} ₽</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Доставка</span>
+                                    <span class="free">Бесплатно</span>
+                                </div>
+                                <div class="total-divider"></div>
+                                <div class="total-row final">
+                                    <span>Итого к оплате</span>
+                                    <span>{{ cart.get_total_price_with_discount|floatformat:2 }} ₽</span> 
+                                </div>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <button type="submit" class="submit-btn" name="action" value="place_order">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 12l2 2 4-4"/>
+                                    <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                                    <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+                                    <path d="M13 12h3a2 2 0 0 1 2 2v1"/>
+                                    <path d="M13 12h-3a2 2 0 0 0-2 2v1"/>
+                                </svg>
+                                Подтвердить заказ
+                            </button>
+                            
+                            <!-- Security Info -->
+                            <div class="security-info">
+                                <div class="security-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                    <span>Безопасная оплата</span>
+                                </div>
+                                <div class="security-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 12l2 2 4-4"/>
+                                        <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                                    </svg>
+                                    <span>Гарантия возврата</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
+<style>
+    /* Checkout Page Styles (No JavaScript) */
+
+/* Breadcrumbs */
+.breadcrumbs {
+  background-color: #ccc5b9;
+  padding: 1rem 0;
+}
+
+.breadcrumb-list {
+  display: flex;
+  list-style: none;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.breadcrumb-list li {
+  color: #403d39;
+}
+
+.breadcrumb-list li:not(:last-child)::after {
+  content: ">";
+  margin-left: 0.5rem;
+  color: #403d39;
+}
+
+.breadcrumb-list a {
+  color: #403d39;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-list a:hover {
+  color: #eb5e28;
+}
+
+.breadcrumb-list .current {
+  color: #252422;
+  font-weight: 600;
+}
+
+/* Checkout Page */
+.checkout-page {
+  padding: 2rem 0;
+  min-height: 60vh;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #252422;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Form Sections */
+.form-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 5px 20px rgba(37, 36, 34, 0.1);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #252422;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #ccc5b9;
+}
+
+.section-title svg {
+  color: #eb5e28;
+}
+
+/* Form Elements */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  color: #252422;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-input,
+.form-textarea {
+  padding: 0.8rem;
+  border: 2px solid #ccc5b9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #fffcf2;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #eb5e28;
+  background: white;
+}
+
+.form-input:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: #dc3545;
+}
+
+.form-input:valid:not(:focus):not(:placeholder-shown) {
+  border-color: #28a745;
+}
+
+.form-error {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  display: none;
+}
+
+.form-input:invalid:not(:focus):not(:placeholder-shown) + .form-error {
+  display: block;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Delivery Options */
+.delivery-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.delivery-option {
+  display: block;
+  cursor: pointer;
+}
+
+.delivery-option input[type="radio"] {
+  display: none;
+}
+
+.option-content {
+  padding: 1.2rem;
+  border: 2px solid #ccc5b9;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background: #fffcf2;
+}
+
+.delivery-option:hover .option-content,
+.delivery-option input[type="radio"]:checked + .option-content {
+  border-color: #eb5e28;
+  background: white;
+  box-shadow: 0 3px 15px rgba(235, 94, 40, 0.1);
+}
+
+.option-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.option-header h3 {
+  color: #252422;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.option-price {
+  color: #eb5e28;
+  font-weight: 600;
+}
+
+.option-description {
+  color: #403d39;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Address Fields */
+.address-fields {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ccc5b9;
+}
+
+/* Payment Options */
+.payment-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.payment-option {
+  display: block;
+  cursor: pointer;
+}
+
+.payment-option input[type="radio"] {
+  display: none;
+}
+
+.payment-option .option-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  height: 100%;
+}
+
+.payment-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.option-details h3 {
+  color: #252422;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem 0;
+}
+
+.option-details p {
+  color: #403d39;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* Additional Options */
+.additional-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid #ccc5b9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #fffcf2;
+}
+
+.checkbox-option:hover,
+.checkbox-option input[type="checkbox"]:checked + .checkbox-content {
+  border-color: #eb5e28;
+  background: white;
+}
+
+.checkbox-option input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #eb5e28;
+}
+
+.checkbox-content {
+  flex: 1;
+}
+
+.checkbox-content h3 {
+  color: #252422;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem 0;
+}
+
+.checkbox-content p {
+  color: #403d39;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Order Summary */
+.checkout-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.order-summary {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(37, 36, 34, 0.1);
+}
+
+.summary-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #252422;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #ccc5b9;
+}
+
+/* Order Items */
+.order-items {
+  margin-bottom: 1.5rem;
+}
+
+.order-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ccc5b9;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #252422;
+  margin: 0 0 0.3rem 0;
+}
+
+.item-specs {
+  font-size: 0.8rem;
+  color: #403d39;
+  margin: 0 0 0.3rem 0;
+}
+
+.item-quantity {
+  font-size: 0.8rem;
+  color: #403d39;
+  margin: 0;
+}
+
+.item-price {
+  font-weight: 600;
+  color: #eb5e28;
+  align-self: flex-start;
+}
+
+/* Promo Section */
+.promo-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #ccc5b9;
+}
+
+.promo-details {
+  cursor: pointer;
+}
+
+.promo-toggle {
+  color: #eb5e28;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.5rem 0;
+}
+
+.promo-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.promo-toggle::before {
+  content: "+ ";
+  margin-right: 0.5rem;
+}
+
+.promo-details[open] .promo-toggle::before {
+  content: "- ";
+}
+
+.promo-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.promo-input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 2px solid #ccc5b9;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.promo-input:focus {
+  outline: none;
+  border-color: #eb5e28;
+}
+
+.promo-btn {
+  background-color: #eb5e28;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.promo-btn:hover {
+  background-color: #d54e20;
+}
+
+/* Order Total */
+.order-total {
+  margin-bottom: 2rem;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.total-row.final {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #252422;
+  padding-top: 1rem;
+}
+
+.discount {
+  color: #28a745;
+}
+
+.free {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.total-divider {
+  height: 1px;
+  background-color: #ccc5b9;
+  margin: 1rem 0;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  background-color: #eb5e28;
+  color: white;
+  border: none;
+  padding: 1.2rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.submit-btn:hover {
+  background-color: #d54e20;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(235, 94, 40, 0.3);
+}
+
+/* Security Info */
+.security-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.security-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #403d39;
+  font-size: 0.9rem;
+}
+
+.security-item svg {
+  color: #28a745;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .checkout-sidebar {
+    position: static;
+    order: -1;
+  }
+
+  .payment-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-section {
+    padding: 1.5rem;
+  }
+
+  .order-summary {
+    padding: 1.5rem;
+  }
+
+  .steps-list {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .step-divider {
+    width: 2px;
+    height: 30px;
+    margin: 0;
+  }
+
+  .checkout-steps {
+    padding: 1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-page {
+    padding: 1rem 0;
+  }
+
+  .form-section,
+  .order-summary {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-image {
+    align-self: center;
+  }
+}
+</style>
+{% endblock %}
